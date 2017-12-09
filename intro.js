@@ -18,11 +18,7 @@ var addListeners = function(element) {
 
 button.addEventListener("click", function() {
   var newElement = document.createElement("li");
-  var int = 0;
-  if (listElements.length > 0) {
-   int = parseInt(listElements[listElements.length-1].innerHTML.slice(5)) + 1;
-  }
-  newElement.innerHTML = "item " + int;
+  newElement.innerHTML = "item " + listElements.length;
   addListeners(newElement);
   list.appendChild(newElement);
 });
