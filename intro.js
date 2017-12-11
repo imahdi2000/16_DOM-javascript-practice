@@ -2,6 +2,9 @@ var title = document.getElementById("h");
 var list = document.getElementById("thelist");
 var button = document.getElementById("b");
 var listElements = document.getElementsByTagName("li");
+var fibutton = document.getElementById("f");
+var fiblist = document.getElementById("fib");
+var fib = 0;
 
 //creating new variable function that gets called for elements
 var addListeners = function(element) {
@@ -26,6 +29,19 @@ button.addEventListener("click", function() {
   addListeners(newElement);
   list.appendChild(newElement);
 });
+
+fibutton.addEventListener("click", function(){
+    var newElement = document.createElement("li");
+    newElement.innerHTML = foo(fib++);
+    fiblist.appendChild(newElement);
+});
+
+var foo = function(n){
+    if (typeof n != "number" || n < 0) return NaN;
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+    return foo(n-2) + foo(n-1);
+};
 
 //helps acess elements in the list
 for (i = 0; i < listElements.length; i++) {
