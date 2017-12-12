@@ -1,49 +1,57 @@
-var title = document.getElementById("h");
-var list = document.getElementById("thelist");
-var button = document.getElementById("b");
-var listElements = document.getElementsByTagName("li");
-var fibutton = document.getElementById("f");
-var fiblist = document.getElementById("fib");
-var fib = 0;
-
-//creating new variable function that gets called for elements
-var addListeners = function(element) {
-  //This code here makes the heading match the item name
+var addListeners = function(element, header, oldHead, removeBool=false) {
   element.addEventListener("mouseover", function() {
-    title.innerHTML = element.innerHTML;
+    header.innerHTML = element.innerHTML;
   });
-  //This code here sets the heading to default when the mouse is not over items
   element.addEventListener("mouseout", function() {
-    title.innerHTML = "Hello World!";
+    header.innerHTML = oldHead;
   });
-  //This code removes element in list when you click on it
-  element.addEventListener("click", function() {
-    element.remove();
-  });
+  if (removeBool) {
+    element.addEventListener("click", function() {
+      element.remove();
+    });
+  }
 };
 
-//this code adds an item to the list
-button.addEventListener("click", function() {
+//Regular Numbers
+var regTitle = document.getElementById("hReg");
+var regList = document.getElementById("regList");
+var regListElements = document.getElementsByClassName("reg");
+var regButton = document.getElementById("regButton");
+
+regButton.addEventListener("click", function() {
   var newElement = document.createElement("li");
-  newElement.innerHTML = "item " + listElements.length;
-  addListeners(newElement);
-  list.appendChild(newElement);
+  newElement.innerHTML = "item " + regListElements.length;
+  newElement.setAttribute("class", "reg")
+  addListeners(newElement, regTitle, "Hello World!", true);
+  regList.appendChild(newElement);
 });
 
-fibutton.addEventListener("click", function(){
-    var newElement = document.createElement("li");
-    newElement.innerHTML = foo(fib++);
-    fiblist.appendChild(newElement);
+//Fibonacci
+var fibTitle = document.getElementById("hFib");
+var fibList = document.getElementById("fibList");
+var fibListElements = document.getElementsByClassName("fib");
+var fibButton = document.getElementById("fibButton");
+
+fibButton.addEventListener("click", function(){
+  var newElement = document.createElement("li");
+  var n = fibListElements.length;
+  n < 2 ? newElement.innerHTML = n : newElement.innerHTML = parseInt(fibListElements[n-2].innerHTML) + parseInt(fibListElements[n-1].innerHTML);
+  newElement.setAttribute("class", "fib");
+  addListeners(newElement, regTitle, "Fibonacci!");
+  fibList.appendChild(newElement);
 });
 
-var foo = function(n){
-    if (typeof n != "number" || n < 0) return NaN;
-    if (n == 0) return 0;
-    if (n == 1) return 1;
-    return foo(n-2) + foo(n-1);
-};
+//Factorial
+var factorialTitle = document.getElementById("hFactorial");
+var factorialList = document.getElementById("factorialList");
+var factorialListElements = document.getElementsByClassName("factorial");
+var factorialButton = document.getElementById("factorialButton");
 
-//helps acess elements in the list
-for (i = 0; i < listElements.length; i++) {
-  addListeners(listElements[i]);
-};
+factorialButton.addEventListener("click", function() {
+  var newElement = document.createElement("li");
+  var n = factorialListElements.length;
+  n < 2 ? newElement.innerHTML = 1 : newElement.innerHTML = parseInt(factorialListElements[n-1].innerHTML) * n;
+  newElement.setAttribute("class", "factorial")
+  addListeners(newElement, regTitle, "Factorial!");
+  factorialList.appendChild(newElement);
+});
